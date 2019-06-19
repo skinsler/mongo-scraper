@@ -37,23 +37,26 @@ mongoose.connect(MONGODB_URI);
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
-  axios.get("http://www.twincities.com/").then(function(response) {
+  axios.get("https://www.mprnews.org/").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
     console.log($);
-
     // Now, we grab every h2 within an article tag, and do the following:
-    $(".article-title").each(function(i, element) {
+    $(".churn").each(function(i, element) {
       // Save an empty result object
       var result = {};
 
+      
       // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this)
-        .attr("title");
-      result.link = $(this)
-        .attr("href");
+      result.title = $(this).find("h2").text();
+      result.link = $(this).children("a").attr("href");
+      result.blurb = $(this).find("p").text().trim(); 
 
-      // Create a new Article using the `result` object built from scraping
+      console.log(result.blurb);
+      console.log(result.title);
+      console.log(result.link);
+
+
       db.Article.create(result)
         .then(function(dbArticle) {
           // View the added result in the console
@@ -106,6 +109,29 @@ app.post("/articles/:id", function(req, res) {
   .then(function(article){
     res.json(article)
   })
+});
+
+app.delete("/articles/", function(req, res) {
+  db.Article.deleteOne({
+    _id : req.body.id
+  })
+    .then(function(result) {
+      console.log(result);
+      res.json(result);
+  });
+});
+
+app.post("/comments/", function(req, res) {
+  console.log(req.body);
+  db.Comment.create({ comment: req.body.comment})
+    .then(function(dbComment) {
+      return db.Article.findOneAndUpdate(
+        { _id: req.body.id },{ $push: { comments:dbComment._id } },{ new: true }
+      );
+    })
+    .then(article => {
+      res.json(article);
+    });
 });
 
 // Start the server

@@ -1,5 +1,5 @@
 <head>
-  <title>Sain Paul Scraper</title>
+  <title>MPR News Scraper</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.0.0/materia/bootstrap.min.css"/>
@@ -9,7 +9,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="/">Saint Paul Scraper</a>
+  <a class="navbar-brand" href="/">MPR News Scraper</a>
   <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false"
     aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -17,20 +17,9 @@
 
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Home
-          <span class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/saved">Saved Articles</a>
-      </li>
       <li class="nav-item">
         <a class="btn btn-danger scrape-new">Scrape New Articles</a>
-      </li>
-      <li class="nav-item">
-        <a class="btn btn-danger clear">Clear Articles</a>
-      </li>
+      </li> 
     </ul>
   </div>
 </nav>
@@ -41,23 +30,59 @@
   <div class="background-image">
   </div>
   <div class="caption">
-    <h1>Saint Paul Scraper</h1>
-    <p>Save Saint Paul Pioneer Press articles using MongoDB </p>
+    <h1>MPR News Scraper</h1>
+    <p>Save Minnesota Public Radio News articles using MongoDB </p>
   </div>
 </div>
 <div class="container-fluid article-container">
 </div>
 
+<div class="modal" id="comment-modal" data-id="0" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Comments</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="comment-target"></div>
+        <textarea id="comment-textarea" placeholder="New Comment" rows="4" cols="60"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-save">Save</button>
+        <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="scrape-modal" data-id="0" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Scrape Complete!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer class="footer">
   <div class="container">
-    <p>Saint Paul Pioneer Press Scraper</p>
+    <p>MPR News Scraper</p>
   </div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-<script src="/assets/javascript/index.js"></script>
+<script src="./app.js"></script>
 
 </body>
 
